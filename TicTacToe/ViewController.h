@@ -10,10 +10,18 @@
 
 @interface ViewController : UIViewController
 {
-    UIButton *button;
-    int currentPlayer;
+    int currentPlayer, i;
+    UIButton *button, *buttonAtIndex;
+    NSString *buttonTitle;
+    NSSortDescriptor *asc;
+    NSArray *sortedButtons;
+    NSMutableArray *availableButtons;
 }
 @property int currentPlayer;
+@property (nonatomic, retain) NSMutableArray * availableButtons;
+@property (nonatomic, retain) NSArray * sortedButtons;
+@property (nonatomic, retain) NSSortDescriptor * asc;
 @property (nonatomic, retain) IBOutlet UIButton *button;
+@property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *buttons;
 - (IBAction)makeMove:(id)sender;
 @end

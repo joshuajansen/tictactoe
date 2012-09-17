@@ -13,31 +13,58 @@
 @end
 
 @implementation ViewController
-@synthesize button, currentPlayer;
+@synthesize button, currentPlayer, availableButtons, sortedButtons, asc;
 
 - (IBAction)makeMove:(id)sender
 {
-    NSLog(@"Title: %i", currentPlayer);
-    if( currentPlayer == 0 || currentPlayer == 1 )
+    button = (UIButton*) sender;
+    buttonTitle = [button currentTitle];
+    NSLog(@"Current player before: %i", self.currentPlayer);
+    
+    if( self.currentPlayer == 1 )
     {
-        
-        [sender setTitle:@"X" forState:UIControlStateNormal];
-        currentPlayer = 2;
-        NSLog(@"Title: %i", currentPlayer);
+        [button setTitle:@"X" forState:UIControlStateNormal];
+        self.currentPlayer = 2;
+        [ self makeAIMove ];
+    }
+    else if( self.currentPlayer == 2 )
+    {
+        NSLog(@"AImove");
+        [button setTitle:@"O" forState:UIControlStateNormal];
+        self.currentPlayer = 1;
+    }
+    NSLog(@"Current player: %i", self.currentPlayer);
+    
+    button.enabled = NO;
+}
+
+- (void)makeAIMove
+{
+    self.asc = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
+    self.sortedButtons = [self.buttons sortedArrayUsingDescriptors:@[asc]];
+    self.availableButtons = [[NSMutableArray alloc] init];
+    
+    for( i = 0; i <= 8; i++ )
+    {
+        buttonAtIndex = [sortedButtons objectAtIndex:(i)];
+        if( buttonAtIndex.currentTitle == nil )
+        {
+            [availableButtons addObject:buttonAtIndex];
+        }
+        buttonAtIndex = nil;
     }
     
-    if( currentPlayer == 2)
-    {
-        [sender setTitle:@"O" forState:UIControlStateNormal];
-        currentPlayer = 1;
-    }
-//    NSString *newContent = [[NSString alloc] initWithFormat:@"X"];
-//    boxContent.text = newContent;
-//    [newContent release];
+    int availableButtonCount = [availableButtons count];
+    int indexding = random() % availableButtonCount--;
+
+    UIButton * aibutton = (UIButton*)[availableButtons objectAtIndex:(indexding)];
+    [self makeMove:aibutton];
 }
 
 - (void)viewDidLoad
 {
+    srandomdev();
+    self.currentPlayer = 1;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -50,6 +77,8 @@
 
 - (void) dealloc
 {
+    [ asc release ];
+    [ sortedButtons release ];
     [super dealloc];
 }
 
