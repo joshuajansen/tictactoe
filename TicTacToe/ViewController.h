@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
+{
+    UIButton *button;
+    int currentPlayer;
+}
+@property int currentPlayer;
+@property (nonatomic, retain) IBOutlet UIButton *button;
+- (IBAction)makeMove:(id)sender;
 @end

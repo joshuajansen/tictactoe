@@ -20,6 +20,7 @@
 		3259A9E41600AA94008EF04A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3259A9C51600AA94008EF04A /* Foundation.framework */; };
 		3259A9EC1600AA94008EF04A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3259A9EA1600AA94008EF04A /* InfoPlist.strings */; };
 		3259A9EF1600AA94008EF04A /* TicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3259A9EE1600AA94008EF04A /* TicTacToeTests.m */; };
+		32F54A2F1601F486001B4B9E /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F54A2E1601F486001B4B9E /* Cell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		3259A9EB1600AA94008EF04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3259A9ED1600AA94008EF04A /* TicTacToeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TicTacToeTests.h; sourceTree = "<group>"; };
 		3259A9EE1600AA94008EF04A /* TicTacToeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicTacToeTests.m; sourceTree = "<group>"; };
+		32F54A2D1601F486001B4B9E /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		32F54A2E1601F486001B4B9E /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				3259A9D81600AA94008EF04A /* ViewController.h */,
 				3259A9D91600AA94008EF04A /* ViewController.m */,
 				3259A9CA1600AA94008EF04A /* Supporting Files */,
+				32F54A2D1601F486001B4B9E /* Cell.h */,
+				32F54A2E1601F486001B4B9E /* Cell.m */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				3259A9D01600AA94008EF04A /* main.m in Sources */,
 				3259A9D41600AA94008EF04A /* AppDelegate.m in Sources */,
 				3259A9DA1600AA94008EF04A /* ViewController.m in Sources */,
+				32F54A2F1601F486001B4B9E /* Cell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +368,7 @@
 		3259A9F31600AA94008EF04A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TicTacToe/TicTacToe-Prefix.pch";
 				INFOPLIST_FILE = "TicTacToe/TicTacToe-Info.plist";
@@ -373,6 +380,7 @@
 		3259A9F41600AA94008EF04A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TicTacToe/TicTacToe-Prefix.pch";
 				INFOPLIST_FILE = "TicTacToe/TicTacToe-Info.plist";
@@ -434,6 +442,7 @@
 				3259A9F41600AA94008EF04A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3259A9F51600AA94008EF04A /* Build configuration list for PBXNativeTarget "TicTacToeTests" */ = {
 			isa = XCConfigurationList;
@@ -442,6 +451,7 @@
 				3259A9F71600AA94008EF04A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
