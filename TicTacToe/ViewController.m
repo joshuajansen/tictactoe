@@ -12,38 +12,39 @@
 
 @end
 
+static NSString *HUMAN = @"X";
+static NSString *COMPUTER = @"O";
+
 @implementation ViewController
-@synthesize button, currentPlayer, availableButtons, sortedButtons, asc;
+@synthesize gameFinished, button, currentPlayer, availableButtons, sortedButtons, asc, gameStatus, rematch;
 
 - (IBAction)makeMove:(id)sender
 {
-    button = (UIButton*) sender;
-    buttonTitle = [button currentTitle];
-    NSLog(@"Current player before: %i", self.currentPlayer);
-    
-    if( self.currentPlayer == 1 )
+    if ( self.gameFinished == NO )
     {
-        [button setTitle:@"X" forState:UIControlStateNormal];
-        self.currentPlayer = 2;
-        [ self makeAIMove ];
+        button = (UIButton*) sender;
+        button.enabled = NO;
+        buttonTitle = [button currentTitle];
+        
+        [button setTitle:self.currentPlayer forState:UIControlStateNormal];
+        
+        if ( [ self gameOverOnButton:button] == NO )
+        {
+            if ( self.currentPlayer == HUMAN )
+            {
+                self.currentPlayer = COMPUTER;
+                [ self makeRandomComputerMove ];
+            }
+            else
+            {
+                self.currentPlayer = HUMAN;
+            }
+        }
     }
-    else if( self.currentPlayer == 2 )
-    {
-        NSLog(@"AImove");
-        [button setTitle:@"O" forState:UIControlStateNormal];
-        self.currentPlayer = 1;
-    }
-    NSLog(@"Current player: %i", self.currentPlayer);
-    
-    button.enabled = NO;
 }
 
-- (void)makeAIMove
+- (void)makeRandomComputerMove
 {
-    self.asc = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
-    self.sortedButtons = [self.buttons sortedArrayUsingDescriptors:@[asc]];
-    self.availableButtons = [[NSMutableArray alloc] init];
-    
     for( i = 0; i <= 8; i++ )
     {
         buttonAtIndex = [sortedButtons objectAtIndex:(i)];
@@ -55,16 +56,103 @@
     }
     
     int availableButtonCount = [availableButtons count];
-    int indexding = random() % availableButtonCount--;
+    
+    if ( availableButtonCount == 0 )
+    {
+        self.gameFinished = YES;
+        
+        NSString *status = [[NSString alloc] initWithFormat:@"It's a tie!"];
+        
+        gameStatus.text = status;
+        rematch.hidden = NO;
+        
+        [ status release ];
+    }
+    else
+    {
+        int randIndex = random() % availableButtonCount--;
+        
+        UIButton * aibutton = (UIButton*)[availableButtons objectAtIndex:(randIndex)];
+        [availableButtons removeAllObjects];
+        [self makeMove:aibutton];
+    }
+}
 
-    UIButton * aibutton = (UIButton*)[availableButtons objectAtIndex:(indexding)];
-    [self makeMove:aibutton];
+- (BOOL)gameOverOnButton:(UIButton *)pressedButton
+{
+    int tag = pressedButton.tag;
+    
+    int col = tag % 3;
+    int row = (tag - col) / 3;
+    
+    int rowCount = 0;
+    int colCount = 0;
+    int diagonalCount1 = 0;
+    int diagonalCount2 = 0;
+    
+    for( i = 0; i < 3; i++ )
+    {
+        if ( ((UIButton*)[sortedButtons objectAtIndex:(row*3+i)]).currentTitle == self.currentPlayer )
+        {
+            rowCount++;
+        }
+        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+col)]).currentTitle == self.currentPlayer )
+        {
+            colCount++;
+        }
+        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+i)]).currentTitle == self.currentPlayer )
+        {
+            diagonalCount1++;
+        }
+        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+2-i)]).currentTitle == self.currentPlayer )
+        {
+            diagonalCount2++;
+        }
+    }
+    
+    if( rowCount == 3 || colCount == 3 || diagonalCount1 == 3 || diagonalCount2 == 3 )
+    {
+        self.gameFinished = YES;
+        
+        NSString *status = [[NSString alloc] initWithFormat:@"%@ has won", self.currentPlayer];
+        
+        gameStatus.text = status;
+        rematch.hidden = NO;
+        
+        [ status release ];
+    }
+    
+    return self.gameFinished;
+}
+
+- (IBAction)resetBoard:(id)sender
+{
+    for ( button in sortedButtons )
+    {
+        button.enabled = YES;
+        [ button setTitle:nil forState:UIControlStateNormal ];
+    }
+    
+    NSString *status = [[NSString alloc] initWithString:@"I play to win!"];
+    gameStatus.text = status;
+    
+    self.currentPlayer = HUMAN;
+    self.gameFinished = NO;
+    rematch.hidden = YES;
+    
+    [ status release ];
 }
 
 - (void)viewDidLoad
 {
     srandomdev();
-    self.currentPlayer = 1;
+    self.currentPlayer = HUMAN;
+    self.gameFinished = NO;
+    
+    self.asc = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
+    self.sortedButtons = [self.buttons sortedArrayUsingDescriptors:@[self.asc]];
+    self.availableButtons = [[NSMutableArray alloc] init];
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -75,10 +163,11 @@
     // Release any retained subviews of the main view.
 }
 
-- (void) dealloc
+- (void)dealloc
 {
     [ asc release ];
     [ sortedButtons release ];
+    [ availableButtons release ];
     [super dealloc];
 }
 

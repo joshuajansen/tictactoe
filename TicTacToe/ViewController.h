@@ -10,18 +10,30 @@
 
 @interface ViewController : UIViewController
 {
-    int currentPlayer, i;
-    UIButton *button, *buttonAtIndex;
-    NSString *buttonTitle;
+    int i;
+    BOOL gameFinished;
+    UIButton *button, *buttonAtIndex, *rematch;
+    UILabel *gameStatus;
+    NSString *currentPlayer, *buttonTitle;
     NSSortDescriptor *asc;
     NSArray *sortedButtons;
     NSMutableArray *availableButtons;
 }
-@property int currentPlayer;
+
+@property int i;
+@property BOOL gameFinished;
+@property (nonatomic, retain) NSString * currentPlayer;
 @property (nonatomic, retain) NSMutableArray * availableButtons;
 @property (nonatomic, retain) NSArray * sortedButtons;
 @property (nonatomic, retain) NSSortDescriptor * asc;
 @property (nonatomic, retain) IBOutlet UIButton *button;
+@property (nonatomic, retain) IBOutlet UIButton *rematch;
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *buttons;
+@property (nonatomic, retain) IBOutlet UILabel *gameStatus;
+
 - (IBAction)makeMove:(id)sender;
+- (void)makeRandomComputerMove;
+- (BOOL)gameOverOnButton:(UIButton *)pressedButton;
+- (IBAction)resetBoard:(id)sender;
+
 @end

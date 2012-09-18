@@ -21,6 +21,7 @@
 		3259A9EC1600AA94008EF04A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3259A9EA1600AA94008EF04A /* InfoPlist.strings */; };
 		3259A9EF1600AA94008EF04A /* TicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3259A9EE1600AA94008EF04A /* TicTacToeTests.m */; };
 		32F54A2F1601F486001B4B9E /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F54A2E1601F486001B4B9E /* Cell.m */; };
+		DA561AB8160887D900CB732E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DA561AB7160887D900CB732E /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3259A9EE1600AA94008EF04A /* TicTacToeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicTacToeTests.m; sourceTree = "<group>"; };
 		32F54A2D1601F486001B4B9E /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		32F54A2E1601F486001B4B9E /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		DA561AB7160887D900CB732E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		3259A9B41600AA93008EF04A = {
 			isa = PBXGroup;
 			children = (
+				DA561AB7160887D900CB732E /* .gitignore */,
 				3259A9C91600AA94008EF04A /* TicTacToe */,
 				3259A9E71600AA94008EF04A /* TicTacToeTests */,
 				3259A9C21600AA93008EF04A /* Frameworks */,
@@ -229,6 +232,7 @@
 			files = (
 				3259A9CE1600AA94008EF04A /* InfoPlist.strings in Resources */,
 				3259A9D71600AA94008EF04A /* MainStoryboard.storyboard in Resources */,
+				DA561AB8160887D900CB732E /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
