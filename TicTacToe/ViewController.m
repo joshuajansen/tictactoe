@@ -47,15 +47,15 @@ static NSString *COMPUTER = @"O";
 {
     for( i = 0; i <= 8; i++ )
     {
-        buttonAtIndex = [sortedButtons objectAtIndex:(i)];
+        buttonAtIndex = [self.sortedButtons objectAtIndex:(i)];
         if( buttonAtIndex.currentTitle == nil )
         {
-            [availableButtons addObject:buttonAtIndex];
+            [self.availableButtons addObject:buttonAtIndex];
         }
         buttonAtIndex = nil;
     }
     
-    int availableButtonCount = [availableButtons count];
+    int availableButtonCount = [self.availableButtons count];
     
     if ( availableButtonCount == 0 )
     {
@@ -63,8 +63,8 @@ static NSString *COMPUTER = @"O";
         
         NSString *status = [[NSString alloc] initWithFormat:@"It's a tie!"];
         
-        gameStatus.text = status;
-        rematch.hidden = NO;
+        self.gameStatus.text = status;
+        self.rematch.hidden = NO;
         
         [ status release ];
     }
@@ -72,9 +72,9 @@ static NSString *COMPUTER = @"O";
     {
         int randIndex = random() % availableButtonCount--;
         
-        UIButton * aibutton = (UIButton*)[availableButtons objectAtIndex:(randIndex)];
-        [availableButtons removeAllObjects];
-        [self makeMove:aibutton];
+        button = (UIButton*)[self.availableButtons objectAtIndex:(randIndex)];
+        [self.availableButtons removeAllObjects];
+        [self makeMove:button];
     }
 }
 
@@ -92,19 +92,19 @@ static NSString *COMPUTER = @"O";
     
     for( i = 0; i < 3; i++ )
     {
-        if ( ((UIButton*)[sortedButtons objectAtIndex:(row*3+i)]).currentTitle == self.currentPlayer )
+        if ( ((UIButton*)[self.sortedButtons objectAtIndex:(row*3+i)]).currentTitle == self.currentPlayer )
         {
             rowCount++;
         }
-        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+col)]).currentTitle == self.currentPlayer )
+        if ( ((UIButton*)[self.sortedButtons objectAtIndex:(i*3+col)]).currentTitle == self.currentPlayer )
         {
             colCount++;
         }
-        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+i)]).currentTitle == self.currentPlayer )
+        if ( ((UIButton*)[self.sortedButtons objectAtIndex:(i*3+i)]).currentTitle == self.currentPlayer )
         {
             diagonalCount1++;
         }
-        if ( ((UIButton*)[sortedButtons objectAtIndex:(i*3+2-i)]).currentTitle == self.currentPlayer )
+        if ( ((UIButton*)[self.sortedButtons objectAtIndex:(i*3+2-i)]).currentTitle == self.currentPlayer )
         {
             diagonalCount2++;
         }
@@ -116,8 +116,8 @@ static NSString *COMPUTER = @"O";
         
         NSString *status = [[NSString alloc] initWithFormat:@"%@ has won", self.currentPlayer];
         
-        gameStatus.text = status;
-        rematch.hidden = NO;
+        self.gameStatus.text = status;
+        self.rematch.hidden = NO;
         
         [ status release ];
     }
@@ -127,18 +127,18 @@ static NSString *COMPUTER = @"O";
 
 - (IBAction)resetBoard:(id)sender
 {
-    for ( button in sortedButtons )
+    for ( button in self.sortedButtons )
     {
         button.enabled = YES;
         [ button setTitle:nil forState:UIControlStateNormal ];
     }
     
     NSString *status = [[NSString alloc] initWithString:@"I play to win!"];
-    gameStatus.text = status;
+    self.gameStatus.text = status;
     
     self.currentPlayer = HUMAN;
     self.gameFinished = NO;
-    rematch.hidden = YES;
+    self.rematch.hidden = YES;
     
     [ status release ];
 }
